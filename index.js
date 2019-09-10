@@ -17,7 +17,7 @@ const loadCellsDNA = async function (dna, mode, repoPath) {
       skipResolve: true
     })
     let cellDnaBranch = cellDNAPath.replace(repoPath + path.sep, '')
-      .replace(path.sep + 'dna', '')
+      .replace(new RegExp(path.sep + 'dna$'), '')
       .replace(new RegExp(path.sep, 'g'), '.')
     createBranch(dna, cellDnaBranch, cellDNA.index || cellDNA)
   }
