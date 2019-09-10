@@ -6,6 +6,7 @@
     "preversion": "npm test",
     "release-patch": "npm version patch && npm publish",
     "release-minor": "npm version minor && npm publish",
+    "release-major": "npm version major && npm publish",
     "postversion": "git push origin master && git push origin master --tags"
   },
   "dependencies": {
