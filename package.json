@@ -10,9 +10,10 @@
     "postversion": "git push origin master && git push origin master --tags"
   },
   "dependencies": {
-    "organic-dna-loader": "^1.8.0",
     "fast-glob": "^3.0.4",
-    "organic-dna-branches": "^0.0.2"
+    "organic-dna-branches": "^0.0.2",
+    "organic-dna-loader": "^1.8.0",
+    "path-exists": "^4.0.0"
   },
   "description": "Utility module for loading repo dna accordingly to stem skeleton 2.1 structure.",
   "main": "index.js",
