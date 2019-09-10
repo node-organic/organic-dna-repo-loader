@@ -23,21 +23,20 @@ const loadCellsDNA = async function (dna, mode, repoPath) {
   }
 }
 
-module.exports = async function (cwd, mode) {
+module.exports = async function ({root, mode, skipExistingLoaderUsage = false}) {
   // check for provided existing loader accordingly to stem skeleton v2.1
-  let existingLoadDNAPath = path.join(cwd, 'cells/node_modules/lib/load-root-dna.js')
-  let dna
-  if (await exists(existingLoadDNAPath)) {
+  let existingLoadDNAPath = path.join(root, 'cells/node_modules/lib/load-root-dna.js')
+  if (await exists(existingLoadDNAPath) && !skipExistingLoaderUsage) {
     // loader exists, so use it instead of current implementation
     let existingLoader = require(existingLoadDNAPath)
     return existingLoader(mode)
   }
 
   return loadDNA({
-    dnaSourcePath: path.join(cwd, 'dna'),
+    dnaSourcePath: path.join(root, 'dna'),
     dnaMode: mode,
     beforeResolve: async function (dna) {
-      await loadCellsDNA(dna, mode, cwd)
+      await loadCellsDNA(dna, mode, root)
     }
   })
 }

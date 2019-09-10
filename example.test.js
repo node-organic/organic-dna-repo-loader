@@ -3,20 +3,22 @@ const loadDNA = require('./index')
 const path = require('path')
 
 test('example', async function (t) {
-  let dna = await loadDNA(path.join(__dirname, 'sample-repo'))
+  let dna = await loadDNA({
+    root: path.join(__dirname, 'sample-repo')
+  })
   t.deepEqual(JSON.parse(JSON.stringify(dna)), {
     branch: {
-      property: "value"
+      property: 'value'
     },
     cells: {
       cell1: {
         build: {
-          myProperty: "value"
+          myProperty: 'value'
         }
       }
     },
     common: {
-      property: "value"
+      property: 'value'
     }
   })
 })
