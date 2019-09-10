@@ -16,7 +16,15 @@ const loadCellsDNA = async function (dna, mode, repoPath) {
       dnaMode: mode,
       skipResolve: true
     })
-    let cellDnaBranch = cellDNAPath.replace(repoPath + path.sep, '')
+    let cellDnaBranch = cellDNAPath
+    if (repoPath !== '/') {
+      // replace repo prefix only if it is different than root folder
+      cellDnaBranch = cellDnaBranch.replace(repoPath + path.sep, '')
+    } else {
+      // replace repo prefix ('/')
+      cellDnaBranch = cellDnaBranch.replace(repoPath, '')
+    }
+    cellDnaBranch = cellDnaBranch
       .replace(new RegExp(path.sep + 'dna$'), '')
       .replace(new RegExp(path.sep, 'g'), '.')
     createBranch(dna, cellDnaBranch, cellDNA.index || cellDNA)
