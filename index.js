@@ -5,10 +5,17 @@ const {createBranch} = require('organic-dna-branches')
 const exists = require('path-exists')
 
 const loadCellsDNA = async function (dna, mode, repoPath) {
-  const cellDNAPaths = await glob(path.join(repoPath, 'cells/**/dna'), {
-    ignore: ['**/node_modules/**/*'],
-    onlyDirectories: true
-  })
+  let cellDNAPaths
+  if (dna.cells && dna.cells.index && dna.cells.index.cellsInfo === 'v1') {
+    cellDNAPaths = dna.cells.index.cellPaths.map(function (v) {
+      return path.join(repoPath, v, 'dna')
+    })
+  } else {
+    cellDNAPaths = await glob(path.join(repoPath, 'cells/**/dna'), {
+      ignore: ['**/node_modules/**/*'],
+      onlyDirectories: true
+    })
+  }
   for (let i = 0; i < cellDNAPaths.length; i++) {
     let cellDNAPath = cellDNAPaths[i]
     let cellDNA = await loadDNA({

@@ -22,3 +22,28 @@ test('example', async function (t) {
     }
   })
 })
+
+test('example with predefined cell routes', async function (t) {
+  let dna = await loadDNA({
+    root: path.join(__dirname, 'sample-repo-with-cell-paths')
+  })
+  t.deepEqual(JSON.parse(JSON.stringify(dna)), {
+    branch: {
+      property: 'value'
+    },
+    cells: {
+      index: {
+        cellsInfo: 'v1',
+        cellPaths: ['cells/cell1']
+      },
+      cell1: {
+        build: {
+          myProperty: 'value'
+        }
+      }
+    },
+    common: {
+      property: 'value'
+    }
+  })
+})
