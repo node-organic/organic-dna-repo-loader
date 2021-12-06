@@ -2,7 +2,7 @@ const loadDNA = require('organic-dna-loader')
 const glob = require('fast-glob')
 const path = require('path')
 const {createBranch} = require('organic-dna-branches')
-const exists = require('path-exists')
+const exists = require('file-exists')
 
 const loadCellsDNA = async function (dna, mode, repoPath) {
   let cellDNAPaths
@@ -34,13 +34,25 @@ const loadCellsDNA = async function (dna, mode, repoPath) {
     cellDnaBranch = cellDnaBranch
       .replace(new RegExp(path.sep + 'dna$'), '')
       .replace(new RegExp(path.sep, 'g'), '.')
-    createBranch(dna, cellDnaBranch, cellDNA.index || cellDNA)
+    if (cellDNA.index) {
+      Object.assign(cellDNA, cellDNA.index)
+      delete cellDNA.index
+    }
+    createBranch(dna, cellDnaBranch, cellDNA)
   }
 }
 
 module.exports = async function ({root, mode, skipExistingLoaderUsage = false}) {
   // check for provided existing loader accordingly to stem skeleton v2.1
   let existingLoadDNAPath = path.join(root, 'cells/node_modules/lib/load-root-dna.js')
+  if (await exists(existingLoadDNAPath) && !skipExistingLoaderUsage) {
+    console.warn('found stem-skeleton 2.1 root dna loader, newer versions will deprecate this in flavor of stem-skeleton 3')
+    // loader exists, so use it instead of current implementation
+    let existingLoader = require(existingLoadDNAPath)
+    return existingLoader(mode)
+  }
+  // stem-skeleton 3.x.x support
+  existingLoadDNAPath = path.join(root, 'packages/lib/load-root-dna.js')
   if (await exists(existingLoadDNAPath) && !skipExistingLoaderUsage) {
     // loader exists, so use it instead of current implementation
     let existingLoader = require(existingLoadDNAPath)

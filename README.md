@@ -1,6 +1,6 @@
 # organic-dna-repo-loader
 
-Utility module for loading repo dna accordingly to stem skeleton 2.1 structure.
+Utility module for loading repo dna accordingly to stem skeleton v2.1 & v3.x.x structure.
 
 Features:
 
@@ -11,8 +11,9 @@ Features:
   - [x] manually listed
 - [x] mounting cell's dna `index` as its root dna branch
 - [x] resolves refrences once all DNA folders are loaded into memory
-- [x] based on [`organic-dna-loader@1.8.0`](https://github.com/node-organic/organic-dna-loader)
+- [x] based on [`organic-dna-loader@1.x.x`](https://github.com/node-organic/organic-dna-loader)
 - [x] defers DNA loading to existing implementation under `cells/node_modules/lib/load-root-dna` as per stem skeleton 2.1 concept.
+- [x] defers DNA loading to existing implementation under `cells/packages/lib/load-root-dna` as per stem skeleton 3.0.0 concept.
 
 ## usage
 

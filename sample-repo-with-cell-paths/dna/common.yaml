@@ -1,2 +1,2 @@
 ---
-property: @cells.cell1.build.myProperty
+property: "@cells.cell1.build.myProperty"

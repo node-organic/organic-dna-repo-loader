@@ -1,2 +1,2 @@
 build:
-  myProperty: @branch.property
+  myProperty: "@branch.property"
